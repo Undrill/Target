@@ -9,6 +9,7 @@ public class PlayerBehavior : MonoBehaviour
     public bool alive = true;
 
     private Vector2 targetposition;
+    public GameManagement GameManagement;
 
     private int outofscreen = 500000;
     public float playerspeed = 0.3f;
@@ -41,6 +42,7 @@ public class PlayerBehavior : MonoBehaviour
         {
             Debug.Log("Player is out of screen");
             alive = false;
+            GameManagement.OnPlayerDeath();
             // A rajouter : Lancer le Game Over Screen
         }
     }
@@ -52,6 +54,7 @@ public class PlayerBehavior : MonoBehaviour
         {
             this.gameObject.SetActive(false);
             Debug.Log("Enemy Hit");
+            GameManagement.OnPlayerDeath();
             alive = false;
             // A rajouter : Animation destruction Player
             // A rajouter : Lancer le Game Over Screen
