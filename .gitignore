@@ -1,9 +1,9 @@
-/Target/Target/[Ll]ibrary/
-/Target/Target/[Tt]emp/
-/Target/Target/[Oo]bj/
-/Target/Target/[Bb]uild/
-/Target/Target/[Bb]uilds/
-/Target/Target/Assets/AssetStoreTools*
+/Target/Targets/[Ll]ibrary/
+/Target/Targets/[Tt]emp/
+/Target/Targets/[Oo]bj/
+/Target/Targets/[Bb]uild/
+/Target/Targets/[Bb]uilds/
+/Target/Targets/Assets/AssetStoreTools*
 
 # Visual Studio 2015 cache directory
 /.vs/
@@ -32,3 +32,12 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+*.ide-shm
+*.ide-wal
+Target/Targets/Library/assetDatabase3
+Target/Targets/Library/EditorInstance.json
+Target/Targets/Library/metadata/00/0000000000000000b000000000000000
+Target/Targets/Library/metadata/53/5390d30bac82ff748b84c056c908a198
+Target/Targets/Library/metadata/53/5390d30bac82ff748b84c056c908a198
+Target/Targets/Library/metadata/00/0000000000000000b000000000000000
+Target/Targets/Library/metadata/53/5390d30bac82ff748b84c056c908a198
