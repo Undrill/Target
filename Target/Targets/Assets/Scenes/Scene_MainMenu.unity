@@ -587,6 +587,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   alive: 1
   speed: 0.05
+  GameManagement: {fileID: 1720759414}
 --- !u!1 &733219736
 GameObject:
   m_ObjectHideFlags: 0
@@ -1261,6 +1262,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RetryButton: {fileID: 177147299}
+  Scoretexte: {fileID: 0}
 --- !u!4 &1720759415
 Transform:
   m_ObjectHideFlags: 0

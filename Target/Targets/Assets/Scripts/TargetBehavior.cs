@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class TargetBehavior : MonoBehaviour {
 
-    public bool alive = true;
-    private bool shouldMove = true;
+    private bool shouldMove = false;
 
     private Vector2 HorizontalBounds;
     private Vector2 objectsize;
 
     public float speed = 0.05f;
+    public GameManagement GameManagement;
 
     private Collider2D objectCollider;
+
+    private Vector2 InitialTargetPosition;
 
     void Start()
     {
@@ -21,6 +23,8 @@ public class TargetBehavior : MonoBehaviour {
         objectsize = objectCollider.bounds.size;
         HorizontalBounds.y = this.transform.position.y;
         HorizontalBounds.x = ((Camera.main.orthographicSize * Camera.main.aspect) - objectsize.x / 2);
+
+        InitialTargetPosition = this.transform.position;
     }
 
 
@@ -48,12 +52,20 @@ public class TargetBehavior : MonoBehaviour {
         }
     }
 
+    public void LevelUp()
+    {
+        Debug.Log("Entered Target Level up function on Target Behavior");
+        this.transform.position = InitialTargetPosition;
+        this.gameObject.SetActive(true);
+
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.tag == "Player")
         {
-            gameObject.SetActive(false);
-            alive = false;
+            this.gameObject.SetActive(false);
+            GameManagement.OnTargetHit();
         }
     }
 }

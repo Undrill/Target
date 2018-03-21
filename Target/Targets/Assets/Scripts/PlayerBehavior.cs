@@ -5,16 +5,22 @@ using UnityEngine.SceneManagement;
 
 public class PlayerBehavior : MonoBehaviour
 {
-    private bool launch = false;
-    public bool alive = true;
+    public bool launch = false;
 
     private Vector2 targetposition;
     public GameManagement GameManagement;
+    private Vector2 InitialPlayerPosition;
 
     private int outofscreen = 500000;
     public float playerspeed = 0.3f;
 
-   void Update()
+
+    private void Start()
+    {
+        InitialPlayerPosition = this.transform.position;
+    }
+
+    void Update()
     {
    // Si le joueur tape l'écran, le player est lancé
    if (Input.GetMouseButtonDown(0))
@@ -41,12 +47,19 @@ public class PlayerBehavior : MonoBehaviour
         if (this.transform.position.y > Camera.main.orthographicSize)
         {
             Debug.Log("Player is out of screen");
-            alive = false;
+            this.gameObject.SetActive(false);
             GameManagement.OnPlayerDeath();
             // A rajouter : Lancer le Game Over Screen
         }
     }
 
+    public void LevelUp()
+    {
+        launch = false;
+        this.transform.position = InitialPlayerPosition;
+        this.gameObject.SetActive(true);
+
+    }
     //Fonction de check des collisions avec les obstacles & la cible
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -55,7 +68,6 @@ public class PlayerBehavior : MonoBehaviour
             this.gameObject.SetActive(false);
             Debug.Log("Enemy Hit");
             GameManagement.OnPlayerDeath();
-            alive = false;
             // A rajouter : Animation destruction Player
             // A rajouter : Lancer le Game Over Screen
         }
