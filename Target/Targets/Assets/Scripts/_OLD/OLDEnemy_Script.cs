@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_Script : MonoBehaviour {
+public class OLDEnemy_Script : MonoBehaviour {
 
     private bool alive;
     private float speed;

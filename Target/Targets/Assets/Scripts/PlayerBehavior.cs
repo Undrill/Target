@@ -1,82 +1,85 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerBehavior : MonoBehaviour
 {
-    public bool launch = false;
 
-    private Vector2 targetposition;
-    public GameManagement GameManagement;
+    private bool launch;
+
     private Vector2 InitialPlayerPosition;
 
-    private int outofscreen = 500000;
-    public float playerspeed = 0.3f;
+    private int Score = 0;
+    public float PlayerSpeed = 0.8f;
 
+    public GameObject RetryButton;
 
-    private void Start()
+    void Start()
     {
         InitialPlayerPosition = this.transform.position;
+        RetryButton.SetActive(false);
     }
 
     void Update()
     {
-   // Si le joueur tape l'écran, le player est lancé
-   if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             launch = true;
         }
 
-   if (launch)
+        if (launch)
         {
             LaunchPlayer();
         }
-
     }
 
-    // Fonction de lancement & sortie d'écran du joueur
     void LaunchPlayer()
     {
-        // Lancement du player tout droit en Y
-            targetposition = this.transform.position;
-            targetposition.y = targetposition.y + outofscreen;
-            this.transform.position = Vector2.MoveTowards(this.transform.position, targetposition, playerspeed);
+        this.transform.position = Vector2.MoveTowards(this.transform.position, new Vector2(0, 5000), PlayerSpeed);
 
-        // Verification de sortie d'écran du player
         if (this.transform.position.y > Camera.main.orthographicSize)
         {
             Debug.Log("Player is out of screen");
-            this.gameObject.SetActive(false);
-            GameManagement.OnPlayerDeath();
-            // A rajouter : Lancer le Game Over Screen
+            OnPlayerDeath();
         }
     }
 
-    public void LevelUp()
+    void OnPlayerDeath()
+    {
+        launch = false;
+        this.gameObject.SetActive(false);
+        RetryButton.SetActive(true);
+    }
+
+    void LevelUp()
     {
         launch = false;
         this.transform.position = InitialPlayerPosition;
-        this.gameObject.SetActive(true);
-
+        Score = Score + 1;
+        GameObject.FindGameObjectWithTag("Score").gameObject.GetComponent<Text>().text = Score.ToString();
     }
-    //Fonction de check des collisions avec les obstacles & la cible
+
+    public void OnRetryPressed()
+    {
+        this.transform.position = InitialPlayerPosition;
+        this.gameObject.SetActive(true);
+        RetryButton.SetActive(false);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            this.gameObject.SetActive(false);
-            Debug.Log("Enemy Hit");
-            GameManagement.OnPlayerDeath();
-            // A rajouter : Animation destruction Player
-            // A rajouter : Lancer le Game Over Screen
+            Debug.Log("Player hit an enemy");
+            OnPlayerDeath();
         }
 
         else if (collision.gameObject.tag == "Target")
         {
-            this.gameObject.SetActive(false);
-            Debug.Log("Target hit");
-            // A rajouter : Lancer le prochain "niveau"
+            Debug.Log("Player hit the target");
+            LevelUp();
         }
+
     }
 }

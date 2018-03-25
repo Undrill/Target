@@ -2,62 +2,42 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBehavior : MonoBehaviour
-{
-    private Vector2 HorizontalBounds;
-    private Vector2 objectsize;
-    private float speed;
+public class EnemyBehavior : MonoBehaviour {
 
-    public float minSpeed = 0.02f;
-    public float maxSpeed = 0.05f;
+    private Vector2 HorizontalBorder;
+    private Vector2 ObjectSize;
+    private float Speed;
 
-    public bool alive = true;
+    public float MinSpeed = 0.02f;
+    public float MaxSpeed = 0.05f;
 
-    private Collider2D objectCollider;
-
-    void Start()
+void Start()
     {
-        // Check de la taille de l'objet et des limites horizontales du monde
-        objectCollider = this.GetComponent<Collider2D>();
-        objectsize = objectCollider.bounds.size;
-        HorizontalBounds.y = this.transform.position.y;
-        HorizontalBounds.x = ((Camera.main.orthographicSize * Camera.main.aspect) - objectsize.x /2);
+        ObjectSize = this.GetComponent<Collider2D>().bounds.size;
+        HorizontalBorder = new Vector2(((Camera.main.orthographicSize * Camera.main.aspect) - ObjectSize.x /2), this.transform.position.y);
 
-        // Vitesse des ennemis (parametrables en public)
-        speed = Random.Range(minSpeed, maxSpeed);
-}
-
+        Speed = Random.Range(MinSpeed, MaxSpeed);
+    }
 
     void Update()
     {
-        
-        if (Vector2.Distance(this.transform.position,HorizontalBounds) > 0.0f)
+        if (Vector2.Distance(this.transform.position, HorizontalBorder) > 0.0f)
         {
-            this.transform.position = Vector2.MoveTowards(this.transform.position, HorizontalBounds, speed);
+            this.transform.position = Vector2.MoveTowards(this.transform.position, HorizontalBorder, Speed);
+
         }
         else
         {
-            HorizontalBounds.x = HorizontalBounds.x * -1;
+            HorizontalBorder.x = HorizontalBorder.x * -1;
         }
 
-        if (HorizontalBounds.x > this.transform.position.x)
+        if (HorizontalBorder.x > this.transform.position.x)
         {
-            this.GetComponent<SpriteRenderer>().flipX = false;
+            this.transform.Rotate(new Vector3(0, 0, -360) * Time.deltaTime, Space.Self);
         }
         else
         {
-            this.GetComponent<SpriteRenderer>().flipX = true;
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            this.gameObject.SetActive(false);
-            alive = false;
-            // A rajouter : Animation destruction Enemy
+            this.transform.Rotate(new Vector3(0, 0, 360) * Time.deltaTime, Space.Self);
         }
     }
 }
-

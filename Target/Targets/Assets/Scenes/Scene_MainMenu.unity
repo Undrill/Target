@@ -585,7 +585,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b78aa48cb0e57634593e6cdaf8f1bff2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alive: 1
   speed: 0.05
   GameManagement: {fileID: 1720759414}
 --- !u!1 &733219736
@@ -1262,7 +1261,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RetryButton: {fileID: 177147299}
-  Scoretexte: {fileID: 0}
+  Target: {fileID: 636176726}
+  Player: {fileID: 2078382966}
 --- !u!4 &1720759415
 Transform:
   m_ObjectHideFlags: 0
@@ -1362,6 +1362,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5390d30bac82ff748b84c056c908a198, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alive: 0
+  launch: 0
   GameManagement: {fileID: 1720759414}
   playerspeed: 0.65

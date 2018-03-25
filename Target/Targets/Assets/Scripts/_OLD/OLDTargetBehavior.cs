@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TargetBehavior : MonoBehaviour {
+public class OLDTargetBehavior : MonoBehaviour {
 
     private bool shouldMove = false;
 
@@ -10,7 +10,7 @@ public class TargetBehavior : MonoBehaviour {
     private Vector2 objectsize;
 
     public float speed = 0.05f;
-    public GameManagement GameManagement;
+    public OLDGameManagement GameManagement;
 
     private Collider2D objectCollider;
 
@@ -58,14 +58,5 @@ public class TargetBehavior : MonoBehaviour {
         this.transform.position = InitialTargetPosition;
         this.gameObject.SetActive(true);
 
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.gameObject.tag == "Player")
-        {
-            this.gameObject.SetActive(false);
-            GameManagement.OnTargetHit();
-        }
     }
 }

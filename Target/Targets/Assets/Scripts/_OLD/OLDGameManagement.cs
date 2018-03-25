@@ -4,11 +4,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameManagement : MonoBehaviour {
+public class OLDGameManagement : MonoBehaviour {
 
     public GameObject RetryButton;
-    public TargetBehavior Target;
-    public PlayerBehavior Player;
+    public OLDTargetBehavior Target;
+    public OLDPlayerBehavior Player;
 
     private int Score;
 
